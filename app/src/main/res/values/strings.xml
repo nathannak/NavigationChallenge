@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">NTTDATA</string>
+
+    <string name="menu_item1">Products</string>
+    <string name="menu_item2">Offers</string>
+    <string name="menu_item3">Profile</string>
+    <string name="menu_item4">Cart</string>
+    <string name="notification_badge">9</string>
+    <string name="company_logo">Company logo</string>
+</resources>

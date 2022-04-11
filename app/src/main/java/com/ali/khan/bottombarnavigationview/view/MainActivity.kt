@@ -13,17 +13,12 @@ import com.ali.khan.bottombarnavigationview.viewmodel.ProductsViewModel
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
-    private val viewModel: ProductsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         bottomNavigationView = findViewById(R.id.navigation)
-        viewModel.productList.observe(this, Observer {
-                //update rec view
-                list -> Toast.makeText(this, list.size.toString(), Toast.LENGTH_LONG).show()
-        })
 
         supportFragmentManager.beginTransaction().replace(R.id.framelayout, Fragment3()).commit()
         bottomNavigationView.selectedItemId = R.id.menu_item1
@@ -33,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             if(bottomNavigationView.selectedItemId != item.itemId) {
                 when (item.itemId) {
                     R.id.menu_item1 -> selectedFragment = Fragment1()
-                    R.id.menu_item2 -> selectedFragment = Fragment2()
+//                    R.id.menu_item2 -> selectedFragment = Fragment2() // no offers for now
                     R.id.menu_item3 -> selectedFragment = Fragment3()
                     R.id.menu_item4 -> selectedFragment = Fragment4()
                 }

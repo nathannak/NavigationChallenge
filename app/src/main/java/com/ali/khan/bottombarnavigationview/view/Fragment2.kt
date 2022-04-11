@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.ali.khan.bottombarnavigationview.R
 
+// for now remove offers page
 class Fragment2: Fragment() {
 
     override fun onCreateView(

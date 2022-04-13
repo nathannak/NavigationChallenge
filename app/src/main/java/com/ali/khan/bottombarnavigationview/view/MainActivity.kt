@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.navigation)
 
         supportFragmentManager.beginTransaction().replace(R.id.framelayout, Fragment3()).commit()
-        bottomNavigationView.selectedItemId = R.id.menu_item1
+        bottomNavigationView.selectedItemId = R.id.menu_item3
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             var selectedFragment: Fragment? = null

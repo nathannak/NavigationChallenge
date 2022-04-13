@@ -2,9 +2,9 @@ package com.ali.khan.bottombarnavigationview.repository
 
 import android.content.Context
 import com.ali.khan.bottombarnavigationview.data.Products
-import com.ali.khan.bottombarnavigationview.view.DialogHelper.postErrordialog
 import android.net.NetworkInfo
 import android.net.ConnectivityManager
+import android.widget.Toast
 import java.lang.Exception
 
 
@@ -16,7 +16,7 @@ class Repository(val context: Context) {
             if (response.isSuccessful) {
                 return response.body()
             } else {
-                postErrordialog(context)
+                Toast.makeText(context,"Error gettig data from remote server", Toast.LENGTH_LONG).show()
             }
         }
         return null

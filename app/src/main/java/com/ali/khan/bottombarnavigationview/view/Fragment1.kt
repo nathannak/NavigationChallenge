@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,14 +24,17 @@ class Fragment1 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment1, container, false)
+        val progressBar = view.findViewById<ProgressBar>(R.id.product_progressbar)
+        progressBar.visibility=View.VISIBLE
         recView = view.findViewById(R.id.products_recview)
         viewModel.productList.observe(viewLifecycleOwner, Observer {
-            //update rec view
             list ->
-            run {
-                recView.adapter = productsRecyclerViewAdapter(context,list)
-                recView.layoutManager = LinearLayoutManager(this.context)
-                Toast.makeText(context, list.size.toString(), Toast.LENGTH_LONG).show()
+            if(list.isNotEmpty()) {
+                run {
+                    recView.adapter = productsRecyclerViewAdapter(context,list)
+                    recView.layoutManager = LinearLayoutManager(this.context)
+                }
+                progressBar.visibility=View.GONE
             }
         })
         return view

@@ -1,14 +1,16 @@
 package com.ali.khan.bottombarnavigationview.repository
 
 import android.content.Context
-import com.ali.khan.bottombarnavigationview.data.Products
+import com.ali.khan.bottombarnavigationview.model.Products
 import android.net.NetworkInfo
 import android.net.ConnectivityManager
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import com.ali.khan.bottombarnavigationview.room.ProductsDao
+import com.ali.khan.bottombarnavigationview.room.ProductsEntity
 import java.lang.Exception
 
-
-class Repository(val context: Context) {
+class Repository(val context: Context, val productDao: ProductsDao? = null) {
 
     suspend fun fetchProductsFromRemote(): Products? {
         if(isNetWorkConnected(context)){
@@ -16,10 +18,16 @@ class Repository(val context: Context) {
             if (response.isSuccessful) {
                 return response.body()
             } else {
-                Toast.makeText(context,"Error gettig data from remote server", Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"Error getting data from remote server", Toast.LENGTH_LONG).show()
             }
         }
         return null
+    }
+
+    val allProducts: LiveData<List<ProductsEntity>>? = productDao?.getAll()
+
+    suspend fun insert(product: ProductsEntity) {
+            productDao?.insert(product)
     }
 
     private fun isNetWorkConnected(context: Context): Boolean {

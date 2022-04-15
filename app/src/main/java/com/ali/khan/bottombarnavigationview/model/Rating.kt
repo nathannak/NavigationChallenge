@@ -1,4 +1,4 @@
-package com.ali.khan.bottombarnavigationview.data
+package com.ali.khan.bottombarnavigationview.model
 
 data class Rating(
     val count: Int,

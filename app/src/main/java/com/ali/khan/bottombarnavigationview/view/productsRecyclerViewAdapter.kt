@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ali.khan.bottombarnavigationview.R
-import com.ali.khan.bottombarnavigationview.data.ProductsItem
+import com.ali.khan.bottombarnavigationview.model.ProductsItem
 import com.squareup.picasso.Picasso
 
 class productsRecyclerViewAdapter(context: Context?, list: MutableList<ProductsItem>) : RecyclerView.Adapter<productsRecyclerViewAdapter.ProductsViewHolder>()  {
@@ -16,6 +16,7 @@ class productsRecyclerViewAdapter(context: Context?, list: MutableList<ProductsI
     var mList = mutableListOf<ProductsItem>()
 
     init {
+        mList.clear()
         mList = list
     }
 
@@ -27,7 +28,6 @@ class productsRecyclerViewAdapter(context: Context?, list: MutableList<ProductsI
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
         holder.itemDescription.setText(mList[position].description)
-//        holder.itemImage.setImageResource(R.drawable.cart)
         Picasso.get().load(mList[position].image).into(holder.itemImage);
     }
 
@@ -35,19 +35,16 @@ class productsRecyclerViewAdapter(context: Context?, list: MutableList<ProductsI
         return mList.size
     }
 
-    //1
     class ProductsViewHolder(v: View) : RecyclerView.ViewHolder(v),View.OnClickListener {
-        //2
+
         private var view: View = v
         var itemDescription: TextView = v.findViewById(R.id.product_description)
         var itemImage: ImageView = v.findViewById(R.id.product_image)
 
-        //3
         init {
             v.setOnClickListener(this)
         }
 
-        //4
         override fun onClick(v: View) {
 
         }

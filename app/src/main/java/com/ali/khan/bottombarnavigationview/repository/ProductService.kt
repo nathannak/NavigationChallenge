@@ -1,6 +1,5 @@
 package com.ali.khan.bottombarnavigationview.repository
 
-import com.ali.khan.bottombarnavigationview.data.Products
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

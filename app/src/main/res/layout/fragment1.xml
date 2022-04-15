@@ -3,6 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/product_progressbar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
+
     <ImageView
         android:id="@+id/image_item1"
         android:layout_width="300dp"
@@ -10,7 +18,7 @@
         android:layout_marginBottom="15dp"
         android:layout_centerInParent="true"
         android:src="@drawable/products00"
-        android:alpha="0.25"
+        android:alpha="0.1"
         android:contentDescription="products image background" />
 
     <androidx.recyclerview.widget.RecyclerView

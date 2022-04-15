@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +25,9 @@ class Fragment1 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment1, container, false)
+
+        Toast.makeText(context,"Long click to add to cart",Toast.LENGTH_LONG).show()
+
         val progressBar = view.findViewById<ProgressBar>(R.id.product_progressbar)
         progressBar.visibility=View.VISIBLE
         recView = view.findViewById(R.id.products_recview)
@@ -31,12 +35,16 @@ class Fragment1 : Fragment() {
             list ->
             if(list.isNotEmpty()) {
                 run {
-                    recView.adapter = productsRecyclerViewAdapter(context,list)
+                    recView.adapter = ProductsRecyclerViewAdapter(list,this)
                     recView.layoutManager = LinearLayoutManager(this.context)
                 }
                 progressBar.visibility=View.GONE
             }
         })
         return view
+    }
+
+    fun addToCart(description: String) {
+        viewModel.addToCart(description)
     }
 }

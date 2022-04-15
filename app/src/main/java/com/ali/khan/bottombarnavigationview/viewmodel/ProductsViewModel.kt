@@ -15,7 +15,8 @@ import kotlinx.coroutines.*
 class ProductsViewModel(val app: Application) : AndroidViewModel(app) {
 
     internal val productList = MutableLiveData<MutableList<ProductsItem>>()
-    var repo: Repository
+    internal val mList = mutableListOf<ProductsItem>()
+    internal var repo: Repository
 
     init {
         repo = Repository(
@@ -34,15 +35,30 @@ class ProductsViewModel(val app: Application) : AndroidViewModel(app) {
                     ).show()
                 }
             } else {
-                val mList = mutableListOf<ProductsItem>()
                 for (pi in products!!) {
                     mList.add(pi)
                 }
                 productList.postValue(mList)
-                for (pi in products!!) {
-                    repo.insert(ProductsEntity(pi.description, pi.image))
-                }
+
+                //UI has been updated, save all data to Room DB
+//                for (pi in products!!) {
+//                    repo.insert(ProductsEntity(pi.description, pi.image))
+//                }
+
             }
+        }
+    }
+
+    fun addToCart(description: String) {
+        val pe = ProductsEntity("", "")
+        for (l in mList) {
+            if (l.description.equals(description, true)) {
+                pe.description = description
+                pe.image = l.image
+            }
+        }
+        viewModelScope.launch {
+            repo.insert(pe)
         }
     }
 }

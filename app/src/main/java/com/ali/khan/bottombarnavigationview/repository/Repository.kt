@@ -8,20 +8,25 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import com.ali.khan.bottombarnavigationview.room.ProductsDao
 import com.ali.khan.bottombarnavigationview.room.ProductsEntity
+import retrofit2.Response
 import java.lang.Exception
 
 class Repository(var context: Context, val productDao: ProductsDao? = null) {
-
+    lateinit var response: Response<Products>
     suspend fun fetchProductsFromRemote(): Products? {
         if(isNetWorkConnected(context)){
-            val response = ProductService.getRetrofit().getProducts()
+            response = ProductService.getRetrofit().getProducts()
             if (response.isSuccessful) {
                 return response.body()
             } else {
-                Toast.makeText(context,"Error getting data from remote server", Toast.LENGTH_LONG).show()
+                showError()
             }
         }
         return null
+    }
+
+    internal fun showError() {
+        Toast.makeText(context, "Error getting data from remote server", Toast.LENGTH_LONG).show()
     }
 
     val allProducts: LiveData<List<ProductsEntity>>? = productDao?.getAll()

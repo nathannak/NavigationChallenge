@@ -10,7 +10,7 @@ import com.ali.khan.bottombarnavigationview.room.ProductsDao
 import com.ali.khan.bottombarnavigationview.room.ProductsEntity
 import java.lang.Exception
 
-class Repository(val context: Context, val productDao: ProductsDao? = null) {
+class Repository(var context: Context, val productDao: ProductsDao? = null) {
 
     suspend fun fetchProductsFromRemote(): Products? {
         if(isNetWorkConnected(context)){
@@ -30,7 +30,7 @@ class Repository(val context: Context, val productDao: ProductsDao? = null) {
             productDao?.insert(product)
     }
 
-    private fun isNetWorkConnected(context: Context): Boolean {
+    internal fun isNetWorkConnected(context: Context): Boolean {
         var status = false
         try {
             val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?

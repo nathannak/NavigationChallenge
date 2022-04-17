@@ -25,26 +25,20 @@ class ProductsViewModel(val app: Application) : AndroidViewModel(app) {
         )
         viewModelScope.launch(Dispatchers.IO) {
             var products: Products? = null
-            withContext(Dispatchers.Main) { products = repo.fetchProductsFromRemote() }
-            if (products == null) {
-                withContext(Dispatchers.Main) {
+            withContext(Dispatchers.Main) {
+                products = repo.fetchProductsFromRemote()
+                if (products == null) {
                     Toast.makeText(
                         app.applicationContext,
                         "Error getting data from remote server",
                         Toast.LENGTH_LONG
                     ).show()
+                } else {
+                    for (pi in products!!) {
+                        mList.add(pi)
+                    }
+                    productList.postValue(mList)
                 }
-            } else {
-                for (pi in products!!) {
-                    mList.add(pi)
-                }
-                productList.postValue(mList)
-
-                //UI has been updated, save all data to Room DB
-//                for (pi in products!!) {
-//                    repo.insert(ProductsEntity(pi.description, pi.image))
-//                }
-
             }
         }
     }

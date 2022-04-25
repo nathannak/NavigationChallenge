@@ -27,25 +27,28 @@ class ProductsRecyclerViewAdapter(list: MutableList<ProductsItem>, val fragment:
     }
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
-        holder.itemDescription.setText(mList[position].description)
-        Picasso.get().load(mList[position].image).into(holder.itemImage);
+        holder.bind(mList[position])
     }
 
     override fun getItemCount(): Int {
         return mList.size
     }
 
-    class ProductsViewHolder(val fragmnet: Fragment1?, v: View) : RecyclerView.ViewHolder(v), View.OnLongClickListener {
-        init {
-            v.setOnLongClickListener(this)
-        }
+    class ProductsViewHolder(val fragmnet: Fragment1?, val v: View) : RecyclerView.ViewHolder(v) {
 
         var itemDescription: TextView = v.findViewById(R.id.product_description)
         var itemImage: ImageView = v.findViewById(R.id.product_image)
 
-        override fun onLongClick(v: View?): Boolean {
-            fragmnet?.addToCart(itemDescription.text.toString() )
-            return true
+        fun bind(productItem: ProductsItem){
+
+            v.setOnLongClickListener{
+                fragmnet?.addToCart(productItem)
+                true
+            }
+
+            itemDescription.setText(productItem.description)
+            if(!productItem.image.isNullOrEmpty())
+                Picasso.get().load(productItem.image).into(itemImage);
         }
     }
 }

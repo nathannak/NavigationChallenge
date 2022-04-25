@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ali.khan.bottombarnavigationview.R
 import com.ali.khan.bottombarnavigationview.model.ProductsItem
-import com.ali.khan.bottombarnavigationview.viewmodel.ProductsViewModel
+import com.ali.khan.bottombarnavigationview.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class Fragment4 : Fragment() {
 
-    private val viewModel: ProductsViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var recView: RecyclerView
 
     override fun onCreateView(
@@ -30,6 +32,7 @@ class Fragment4 : Fragment() {
                 list ->
             run {
                 val mList = mutableListOf<ProductsItem>()
+                //avoid this for loop use ProductsItem
                 for(l in list) {
                     mList.add(ProductsItem(description = l.description, image = l.image))
                 }
@@ -42,3 +45,6 @@ class Fragment4 : Fragment() {
     }
 
 }
+
+//TODO add product details (fragment)
+//TODO you can use dialog fragment!

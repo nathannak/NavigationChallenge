@@ -12,11 +12,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ali.khan.bottombarnavigationview.R
-import com.ali.khan.bottombarnavigationview.viewmodel.ProductsViewModel
+import com.ali.khan.bottombarnavigationview.model.ProductsItem
+import com.ali.khan.bottombarnavigationview.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class Fragment1 : Fragment() {
 
-    private val viewModel: ProductsViewModel by viewModels()
+    private val viewModel by viewModels<MainViewModel>()
     private lateinit var recView: RecyclerView
 
     override fun onCreateView(
@@ -44,7 +47,7 @@ class Fragment1 : Fragment() {
         return view
     }
 
-    fun addToCart(description: String) {
-        viewModel.addToCart(description)
+    fun addToCart(productsItem: ProductsItem) {
+        viewModel.addToCart(productsItem)
     }
 }

@@ -1,11 +1,18 @@
 package com.ali.khan.bottombarnavigationview.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "products_items")
 data class ProductsItem(
     val category: String ?=null,
-    val description: String,
+    var description: String,
     val id: Int ?=null,
-    val image: String,
+    var image: String,
     val price: Double ?=null,
     val rating: Rating ?=null,
     val title: String ?=null
-)
+)  {
+    @PrimaryKey(autoGenerate = true)
+    var roomId: Int = 0
+}

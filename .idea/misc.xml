@@ -6,10 +6,12 @@
         <entry key="app/src/main/res/drawable/notification_badge.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.125" />
         <entry key="app/src/main/res/layout/badge.xml" value="0.1358695652173913" />
+        <entry key="app/src/main/res/layout/fragment1.xml" value="0.1331521739130435" />
         <entry key="app/src/main/res/layout/fragment2.xml" value="0.15677083333333333" />
         <entry key="app/src/main/res/layout/fragment3.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment4.xml" value="0.12817028985507245" />
         <entry key="app/src/main/res/layout/fragment5.xml" value="0.1068840579710145" />
+        <entry key="app/src/main/res/layout/products_recview.xml" value="0.1359375" />
         <entry key="app/src/main/res/menu/bottombar_items.xml" value="0.14895833333333333" />
       </map>
     </option>

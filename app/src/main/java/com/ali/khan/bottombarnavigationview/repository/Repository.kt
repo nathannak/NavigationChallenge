@@ -6,13 +6,19 @@ import android.net.NetworkInfo
 import android.net.ConnectivityManager
 import android.widget.Toast
 import androidx.lifecycle.LiveData
+import com.ali.khan.bottombarnavigationview.model.ProductsItem
 import com.ali.khan.bottombarnavigationview.room.ProductsDao
-import com.ali.khan.bottombarnavigationview.room.ProductsEntity
+import dagger.Provides
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.lang.Exception
+import javax.inject.Inject
 
-class Repository(var context: Context, val productDao: ProductsDao? = null) {
+class Repository @Inject constructor (var context: Context, val productDao: ProductsDao? = null) {
+
     lateinit var response: Response<Products>
+
     suspend fun fetchProductsFromRemote(): Products? {
         if(isNetWorkConnected(context)){
             response = ProductService.getRetrofit().getProducts()
@@ -25,13 +31,17 @@ class Repository(var context: Context, val productDao: ProductsDao? = null) {
         return null
     }
 
-    internal fun showError() {
-        Toast.makeText(context, "Error getting data from remote server", Toast.LENGTH_LONG).show()
+    internal suspend fun showError() {
+        withContext(Dispatchers.Main) {
+            Toast.makeText(context, "Error getting data from remote server", Toast.LENGTH_LONG)
+                .show()
+        }
     }
 
-    val allProducts: LiveData<List<ProductsEntity>>? = productDao?.getAll()
+    val allProducts: LiveData<List<ProductsItem>>? = productDao?.getAll()
 
-    suspend fun insert(product: ProductsEntity) {
+
+    suspend fun insert(product: ProductsItem) {
             productDao?.insert(product)
     }
 
@@ -52,4 +62,14 @@ class Repository(var context: Context, val productDao: ProductsDao? = null) {
         }
         return status
     }
+
+    internal fun writeToSharedPref(name: String, value: String) {
+        val sharedPreference = context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        var editor = sharedPreference?.edit()
+        editor?.putString(name, value)
+        editor?.commit()
+    }
+
+    internal fun getSharedPref() = context.getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
+
 }
